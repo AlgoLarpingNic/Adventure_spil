@@ -1,5 +1,5 @@
 void main() {
- //AAAAA
+ //AAAAAAAAAAAA
     int rækkeMin = 1;
     int rækkeMax = 5;
     int randomRække = (int)(Math.random() * rækkeMax - rækkeMin);
