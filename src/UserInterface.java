@@ -10,8 +10,8 @@ public class UserInterface {
 
     public void play() {
         IO.println("Welcome to the adventure");
-        IO.println("Write go north, south, east or west to move around");
-        IO.println("Write quit if you wise to give up or type help for guidance");
+        IO.println("Write go north, south, east or west to move around. You may also use north/east/south/west or n/e/s/w");
+        IO.println("Write quit if you wish to give up or type help for guidance");
         IO.println(adventure.getCurrentRoomDescription());
 
         boolean playing = true;
