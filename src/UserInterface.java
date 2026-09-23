@@ -26,7 +26,7 @@ public class UserInterface {
     }
 
     private boolean handleCommand(String command) {
-        if (command.equals("exit")) {
+        if (command.equals("Quit")) {
             IO.println("Goodbye");
             return false;
         }
@@ -36,8 +36,8 @@ public class UserInterface {
             return true;
         }
 
-        if (command.equals("Help")) {
-            printHelp();
+        if (command.equals("Quit")) {
+            printQuit();
             return true;
         }
 
@@ -69,8 +69,8 @@ public class UserInterface {
         return null;
     }
 
-    private void printHelp() {
-        IO.println("Commands: go north, go east, go south, go west, look, help, exit");
+    private void printQuit() {
+        IO.println("Commands: go north, go east, go south, go west, look, help, quit");
         IO.println("You may also use north/east/south/west or n/e/s/w");
     }
 }
