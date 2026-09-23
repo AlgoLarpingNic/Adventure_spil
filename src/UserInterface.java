@@ -1,26 +1,23 @@
-import java.util.Scanner;
 public class UserInterface {
     private final Adventure adventure;
-    private final Scanner scanner;
 
     public UserInterface(Adventure adventure) {
         this.adventure = adventure;
-        scanner = new Scanner(System.in);
     }
 
     public void play() {
         IO.println("Welcome to the adventure");
         IO.println("Write go north, south, east or west to move around");
-        IO.println("Write 'quit' if you wish to give up or type 'help' for guidance");
+        IO.println("Write quit if you wise to give up or type help for guidance");
         IO.println(adventure.getCurrentRoomDescription());
 
         boolean playing = true;
         while (playing) {
             IO.println("> ");
-            if (!scanner.hasNextLine()) {
+            if (!IO.readln.hasNextLine()) {
                 break;
             }
-            String command = scanner.nextLine().trim().toLowerCase();
+            String command = IO.readln.nextLine().trim().toLowerCase();
             playing = handleCommand(command);
         }
     }
@@ -56,7 +53,7 @@ public class UserInterface {
             case "look": return "Looking around";
             case "go north", "north", "n": return "north";
             case "go east", "east", "e": return "east";
-            case "go south","south", "s": return "south";
+            case "go south", "south", "s": return "south";
             case "go west", "west", "w": return "west";
             default: if (command == null) {
                 return "This path is not available, you hit a wall, please choose another direction";
