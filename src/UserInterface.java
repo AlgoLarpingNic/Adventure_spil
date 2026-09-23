@@ -1,74 +1,48 @@
-import java.util.Objects;
-import java.util.Scanner;
 public class UserInterface {
-    private final Adventure adventure;
-    private final Scanner scanner;
+  private final Adventure adventure;
 
-    public UserInterface(Adventure adventure) {
-        this.adventure = adventure;
-        scanner = new Scanner(System.in);
+  public UserInterface(Adventure adventure) {
+    this.adventure = adventure;
+  }
+  private void go(String direction){
+    if (adventure.move(direction)) {
+      IO.println("Going" + direction);
+      IO.println(adventure.getCurrentRoomDescription());
+    } else {
+        IO.println("This path is not available, you hit a wall, please choose another direction");
+      }
     }
 
-    public void play() {
-        IO.println("Welcome to the adventure");
-        IO.println("Write go north, south, east or west to move around");
-        IO.println("Write quit if you wise to give up or type help for guidance");
-        IO.println(adventure.getCurrentRoomDescription());
+  public void adventureGame() {
 
-        boolean playing = true;
-        while (playing) {
-            IO.println("> ");
-            if (!scanner.hasNextLine()) {
-                break;
-            }
-            String command = scanner.nextLine().trim().toLowerCase();
-            playing = handleCommand(command);
-        }
-    }
+    boolean adventureDone = false;
 
-    private boolean handleCommand(String command) {
-        if (Objects.equals(command, "Quit")) {
-            IO.println("Goodbye");
-            return false;
-        }
+    IO.println("Welcome to adventure game");
+    IO.println();
+    IO.println("Write north, south, east or west to move around");
+    IO.println("Type help for commands and look to look around");
+    IO.println("If you wish to give up type quit");
+    IO.println(adventure.getCurrentRoomDescription());
 
-        if (command.equals("look")) {
-            IO.println(adventure.getCurrentRoomDescription());
-            return true;
-        }
+    while (!adventureDone) {
+      String command = IO.readln();
 
-        if (command.equals("Quit")) {
-            printQuit();
-            return true;
-        }
-
-        String direction = directionFrom(command);
-        if (direction != null) {
-            if (adventure.move(direction)) {
-                IO.println(adventure.getCurrentRoomDescription());
-            } else {
-                IO.println("you hit a wall, please choose another direction");
-            }
-            return true;
-        }
-
-        IO.print("I do not understand that command. Type help for a list of commands.");
-        return true;
-    }
-
-    private String directionFrom(String command) {
         switch (command) {
-            case "look": return "Looking around";
-            case "go north": case "north": case "n": return "north";
-            case "go east": case "east": case "e": return "east";
-            case "go south": case "south": case "s": return "south";
-            case "go west": case "west": case "w": return "west";
-            default: return null;
-        }
-    }
 
-    private void printQuit() {
-        IO.print("Commands: go north, go east, go south, go west, look, help, quit");
-        IO.print("You may also use north/east/south/west or n/e/s/w");
+          case "look" -> IO.println(adventure.getCurrentRoomDescription());
+          case "help" -> IO.println("Commands: quit, look, north, south, east and west");
+          case "north" -> go(command);
+          case "south" -> go(command);
+          case "east" -> go(command);
+          case "west" -> go(command);
+          case "quit" -> {
+            IO.println("Goodbye looser");
+            adventureDone = true;
+          }
+          default -> IO.println("Unknown command, type help to see commands");
+        }
+      }
     }
-}
+  }
+
+
