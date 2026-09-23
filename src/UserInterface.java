@@ -36,6 +36,10 @@ public class UserInterface {
             return true;
         }
 
+        if (command.equals("Quit")) {
+            printQuit();
+            return true;
+        }
 
         String direction = directionFrom(command);
         if (direction != null) {
