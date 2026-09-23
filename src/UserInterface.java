@@ -1,0 +1,70 @@
+import java.util.Scanner;
+public class UserInterface {
+    private final Adventure adventure;
+    private final Scanner scanner;
+
+    public UserInterface(Adventure adventure) {
+        this.adventure = adventure;
+        scanner = new Scanner(System.in);
+    }
+
+    public void play() {
+        IO.println("Welcome to the adventure");
+        IO.println(adventure.getCurrentRoomDescription());
+
+        boolean playing = true;
+        while (playing) {
+            IO.println("> ");
+            if (!scanner.hasNextLine()) {
+                break;
+            }
+            String command = scanner.nextLine().trim().toLowerCase();
+            playing = handleCommand(command);
+        }
+    }
+
+    private boolean handleCommand(String command) {
+        if (command.equals("exit")) {
+            IO.println("Goodbye");
+            return false;
+        }
+
+        if (command.equals("look")) {
+            IO.println(adventure.getCurrentRoomDescription());
+            return true;
+        }
+
+        if (command.equals("Help")) {
+            printHelp();
+            return true;
+        }
+
+        String direction = directionFrom(command);
+        if (direction != null) {
+            if (adventure.move(direction)) {
+                IO.println(adventure.getCurrentRoomDescription());
+            } else {
+                IO.println("You cannot go that way");
+            }
+            return true;
+        }
+
+        IO.println("I do not understand that command. Type help for a list of commands.");
+        return true;
+    }
+
+    private String directionFrom(String command) {
+        switch (command) {
+            case "go north": case "north": case "n": return "north";
+            case "go east": case "east": case "e": return "east";
+            case "go south": case "south": case "s": return "south";
+            case "go west": case "west": case "w": return "west";
+            default: return null;
+        }
+    }
+
+    private void printHelp() {
+        IO.println("Commands: go north, go east, go south, go west, look, help, exit");
+        IO.println("You may also use north/east/south/west or n/e/s/w");
+    }
+}
