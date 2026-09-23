@@ -59,8 +59,11 @@ public class UserInterface {
             case "go east": case "east": case "e": return "east";
             case "go south": case "south": case "s": return "south";
             case "go west": case "west": case "w": return "west";
-            default: return null;
+            default: if (command == null) {
+                return "This path is not available, you hit a wall, please choose another direction";
+            }
         }
+        return null;
     }
 
     private void printHelp() {
