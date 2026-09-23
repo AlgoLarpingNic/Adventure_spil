@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 public class UserInterface {
     private final Adventure adventure;
@@ -26,7 +27,7 @@ public class UserInterface {
     }
 
     private boolean handleCommand(String command) {
-        if (command.equals("Quit")) {
+        if (Objects.equals(command, "Quit")) {
             IO.println("Goodbye");
             return false;
         }
@@ -36,18 +37,22 @@ public class UserInterface {
             return true;
         }
 
+        if (command.equals("Quit")) {
+            printQuit();
+            return true;
+        }
 
         String direction = directionFrom(command);
         if (direction != null) {
             if (adventure.move(direction)) {
                 IO.println(adventure.getCurrentRoomDescription());
             } else {
-                IO.println("You cannot go that way");
+                IO.println("you hit a wall, please choose another direction");
             }
             return true;
         }
 
-        IO.println("I do not understand that command. Type help for a list of commands.");
+        IO.print("I do not understand that command. Type help for a list of commands.");
         return true;
     }
 
@@ -62,11 +67,10 @@ public class UserInterface {
                 return "This path is not available, you hit a wall, please choose another direction";
             }
         }
-        return null;
     }
 
     private void printQuit() {
-        IO.println("Commands: go north, go east, go south, go west, look, help, quit");
-        IO.println("You may also use north/east/south/west or n/e/s/w");
+        IO.print("Commands: go north, go east, go south, go west, look, help, quit");
+        IO.print("You may also use north/east/south/west or n/e/s/w");
     }
 }
