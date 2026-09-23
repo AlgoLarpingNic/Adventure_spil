@@ -6,15 +6,15 @@ public class Adventure {
     }
 
     private void createRooms() {
-        Room room1 = new Room("Room 1, ", "you can move south or east from here\n");
-        Room room2 = new Room("Room 2, ", "you can move west or east from here\n");
-        Room room3 = new Room("Room 3, ", "you can move west or south from here\n");
-        Room room4 = new Room("Room 4, ", "you can move north or south from here\n");
-        Room room5 = new Room("Room 5, ", "you can move south from here\n");
-        Room room6 = new Room("Room 6, ", "you can move north or east from here\n");
-        Room room7 = new Room("Room 7, ", "you can move north or east from here\n");
-        Room room8 = new Room("Room 8, ", "you can move north, west or east from here\n");
-        Room room9 = new Room("Room 9, ", "you can move north or west from here\n");
+        Room room1 = new Room("Room 1, ", "you can move south or east from here");
+        Room room2 = new Room("Room 2, ", "you can move west or east from here");
+        Room room3 = new Room("Room 3, ", "you can move west or south from here");
+        Room room4 = new Room("Room 4, ", "you can move north or south from here");
+        Room room5 = new Room("Room 5, ", "you can move south from here");
+        Room room6 = new Room("Room 6, ", "you can move north or south from here");
+        Room room7 = new Room("Room 7, ", "you can move north or east from here");
+        Room room8 = new Room("Room 8, ", "you can move north, west or east from here");
+        Room room9 = new Room("Room 9, ", "you can move north or west from here");
 
         connectEastWest(room1, room2);
         connectNorthSouth(room1, room4);
