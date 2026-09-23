@@ -1,11 +1,8 @@
-import java.util.Scanner;
 public class UserInterface {
     private final Adventure adventure;
-    private final Scanner scanner;
 
     public UserInterface(Adventure adventure) {
         this.adventure = adventure;
-        scanner = new Scanner(System.in);
     }
 
     public void play() {
@@ -17,10 +14,10 @@ public class UserInterface {
         boolean playing = true;
         while (playing) {
             IO.println("> ");
-            if (!scanner.hasNextLine()) {
+            if (!IO.readln.hasNextLine()) {
                 break;
             }
-            String command = scanner.nextLine().trim().toLowerCase();
+            String command = IO.readln.nextLine().trim().toLowerCase();
             playing = handleCommand(command);
         }
     }
@@ -54,10 +51,10 @@ public class UserInterface {
     private String directionFrom(String command) {
         switch (command) {
             case "look": return "Looking around";
-            case "go north": case "north": case "n": return "north";
-            case "go east": case "east": case "e": return "east";
-            case "go south": case "south": case "s": return "south";
-            case "go west": case "west": case "w": return "west";
+            case "go north", "north", "n": return "north";
+            case "go east", "east", "e": return "east";
+            case "go south", "south", "s": return "south";
+            case "go west", "west", "w": return "west";
             default: if (command == null) {
                 return "This path is not available, you hit a wall, please choose another direction";
             }
