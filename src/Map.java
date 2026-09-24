@@ -42,14 +42,4 @@ public class Map {
     public Room getStartRoom() {
         return startRoom;
     }
-
-    public Room getNextRoom(Room current, String direction) {
-        return switch (direction) {
-            case "north" -> current.getNorth();
-            case "south" -> current.getSouth();
-            case "east" -> current.getEast();
-            case "west" -> current.getWest();
-            default -> null;
-        };
-    }
 }
