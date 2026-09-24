@@ -2,24 +2,35 @@ public class Player {
     private Room currentRoom;
 
     public Player(Room startRoom) {
-        this.currentRoom=startRoom;
+        this.currentRoom = startRoom;
     }
 
-    public String move(String direction) {
-        Room nextRoom = switch (direction) {
-            case "north" -> currentRoom.getNorth();
-            case "south" -> currentRoom.getSouth();
-            case "east" -> currentRoom.getEast();
-            case "west" -> currentRoom.getWest();
-            default -> null;
-        };
+    public boolean move(String direction) {
+        Room nextRoom;
+
+        switch (direction) {
+            case "north":
+                nextRoom = currentRoom.getNorth();
+                break;
+            case "east":
+                nextRoom = currentRoom.getEast();
+                break;
+            case "south":
+                nextRoom = currentRoom.getSouth();
+                break;
+            case "west":
+                nextRoom = currentRoom.getWest();
+                break;
+            default:
+                return false;
+        }
 
         if (nextRoom == null) {
-            return "You hit a wall";
+            return false;
         }
 
         currentRoom = nextRoom;
-        return getCurrentRoomDescription();
+        return true;
     }
 
     public String getCurrentRoomDescription() {
