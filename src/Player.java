@@ -1,19 +1,28 @@
-import java.util.Random;
-
 public class Player {
-    private final int playerId;
-    private final String playerName;
+    private Room currentRoom;
 
-    public Player(String playerName) {
-        this.playerId = new Random().nextInt(100000);
-        this.playerName = playerName;
+    public Player(Room startRoom) {
+        this.currentRoom=startRoom;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public String move(String direction) {
+        Room nextRoom = switch (direction) {
+            case "north" -> currentRoom.getNorth();
+            case "south" -> currentRoom.getSouth();
+            case "east" -> currentRoom.getEast();
+            case "west" -> currentRoom.getWest();
+            default -> null;
+        };
+
+        if (nextRoom == null) {
+            return "You hit a wall";
+        }
+
+        currentRoom = nextRoom;
+        return getCurrentRoomDescription();
     }
 
-    public int getPlayerId() {
-        return playerId;
+    public String getCurrentRoomDescription() {
+        return "You are in " + currentRoom.getName() + System.lineSeparator() + currentRoom.getDescription();
     }
 }
