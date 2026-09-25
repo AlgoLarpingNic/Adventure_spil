@@ -41,9 +41,11 @@ public class UserInterface {
           adventureDone = true;
         }
         default -> IO.println("Unknown command, type help to see commands");
+
+            }
+          }
+        }
       }
-    }
-  }
-}
+
 
 

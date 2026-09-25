@@ -12,6 +12,6 @@ public class Adventure {
     }
 
     public String getCurrentRoomDescription() {
-      return player.getCurrentRoomDescription();
+      return "You are in " + player.getCurrentRoom();
     }
   }

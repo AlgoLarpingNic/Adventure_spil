@@ -27,6 +27,10 @@ public class Map {
         connectNorthSouth(room5, room8);
 
         startRoom = room1;
+
+        room1.add(new Item("Lamp", "A shiny brass lamp"));
+        room4.add(new Item("Sword", "The third leg"));
+        room7.add(new Item("Mirror", "The ugly mirror"));
     }
 
     private void connectEastWest(Room westRoom, Room eastRoom) {
