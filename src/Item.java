@@ -1,25 +1,23 @@
-import java.util.ArrayList;
-
 public class Item {
-  private final String shortname;
-  private final String longname;
+  private final String shortName;
+  private final String longName;
 
 
-  public Item(String shortname, String longname) {
-    this.shortname = shortname;
-    this.longname = longname;
+  public Item(String shortName, String longName) {
+    this.shortName = shortName;
+    this.longName = longName;
   }
 
-  public String getShortname() {
-    return shortname;
+  public String getShortName() {
+    return shortName;
   }
 
-  public String getLongname() {
-    return longname;
+  public String getLongName() {
+    return longName;
   }
 
   @Override
   public String toString() {
-    return getShortname();
+    return longName;
   }
 }

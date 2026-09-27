@@ -26,7 +26,6 @@ public class Room {
   public void setNorth(Room room) {
     north = room;
   }
-
   public Room getNorth() {
     return north;
   }
@@ -34,7 +33,6 @@ public class Room {
   public void setEast(Room room) {
     east = room;
   }
-
   public Room getEast() {
     return east;
   }
@@ -42,7 +40,6 @@ public class Room {
   public void setSouth(Room room) {
     south = room;
   }
-
   public Room getSouth() {
     return south;
   }
@@ -50,7 +47,6 @@ public class Room {
   public void setWest(Room room) {
     west = room;
   }
-
   public Room getWest() {
     return west;
   }
@@ -59,8 +55,21 @@ public class Room {
     items.add(item);
   }
 
+  public void remove(Item item) {
+    items.remove(item);
+  }
+
   public ArrayList<Item> getItems(){
     return items;
+  }
+
+  public Item findItem (String shortName){
+    for (Item item : items) {
+      if (item.getShortName().equalsIgnoreCase(shortName)) {
+        return item;
+      }
+    }
+    return null;   // vigtigt – returnerer null hvis ikke fundet
   }
 
   @Override
