@@ -1,6 +1,6 @@
 public class Adventure {
-    private Map map;
-    private Player player;
+    private final Map map;
+    private final Player player;
 
     public Adventure() {
       map = new Map();
@@ -14,4 +14,16 @@ public class Adventure {
     public String getCurrentRoomDescription() {
       return "You are in " + player.getCurrentRoom();
     }
-  }
+
+    public Item take(String shortName) {
+        return player.takeItem(shortName);
+    }
+
+    public Item drop(String shortName) {
+        return player.dropItem(shortName);
+    }
+
+    public java.util.ArrayList<Item> getInventory() {
+        return player.getItems();
+    }
+}
