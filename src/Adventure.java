@@ -12,7 +12,7 @@ public class Adventure {
     }
 
     public String getCurrentRoomDescription() {
-      return "You are in " + player.getCurrentRoom();
+      return player.getCurrentRoom().toString();
     }
 
     public Item take(String shortName) {
