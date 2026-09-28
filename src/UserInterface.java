@@ -28,7 +28,7 @@ public class UserInterface {
       String input = IO.readln().trim();
       if (input.isEmpty()) continue;
 
-      // Del kommandoen op i ord (fx "take lamp" → ["take", "lamp"])
+      // Deler string[] op i var (parts), og splitter efter første ord. (fx "take lamp" → ["take", "lamp"])
       String[] parts = input.split("\\s+", 2);
       String command = parts[0].toLowerCase();
       String argument = parts.length > 1 ? parts[1].trim() : "";
