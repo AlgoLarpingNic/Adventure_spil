@@ -42,7 +42,7 @@ public class Player {
   // Finder et item i spillerens inventory. Returnerer null hvis ikke fundet. */
   public Item findItem(String shortName) {
     for (Item item : items) {
-      if (item.getShortName().equalsIgnoreCase(shortName)) {
+      if (item.shortName().equalsIgnoreCase(shortName)) {
         return item;
       }
     }
