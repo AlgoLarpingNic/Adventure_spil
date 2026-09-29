@@ -12,15 +12,20 @@ public class Player {
     Room nextRoom;
 
     switch (direction) {
-      case "north" : nextRoom = currentRoom.getNorth();
+      case "north":
+        nextRoom = currentRoom.getNorth();
         break;
-      case "east" : nextRoom = currentRoom.getEast();
+      case "east":
+        nextRoom = currentRoom.getEast();
         break;
-      case "south" : nextRoom = currentRoom.getSouth();
+      case "south":
+        nextRoom = currentRoom.getSouth();
         break;
-      case "west" : nextRoom = currentRoom.getWest();
+      case "west":
+        nextRoom = currentRoom.getWest();
         break;
-      default: return false;
+      default:
+        return false;
     }
 
     if (nextRoom == null) {
@@ -60,7 +65,6 @@ public class Player {
     return item;
   }
 
-
   //Lægger et item fra inventory ned i det aktuelle rum. Returnerer det flyttede Item, eller null hvis spilleren ikke har det.
   public Item dropItem(String shortName) {
     Item item = findItem(shortName);
@@ -72,3 +76,4 @@ public class Player {
     return item;
   }
 }
+
