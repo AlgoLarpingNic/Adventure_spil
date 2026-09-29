@@ -86,21 +86,7 @@ public class UserInterface {
         }
         default -> IO.println("Unknown command, type help to see commands");
       }
-      case "eat" -> {
-        if (argument.isEmpty()) {
-          IO.println("Eat what?");
-        } else {
-          Item item = adventure.findItem(argument);
-          if (item == null) ; {
-            IO.println("There is nothing like " + argument + "to eat");
-          } else if (item instanceof Food food) {
-            adventure.eat(food);
-            IO.println("You ate: " + food.longName());
-          } else {
-            IO.println("You can't eat " + food.longName() + "!");
-          }
-        }
-      }
     }
   }
 }
+
