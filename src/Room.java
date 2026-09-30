@@ -67,7 +67,7 @@ public class Room {
   //søger efter items i rum og safeguarded med samme sn
   public Item findItem (String shortName){
     for (Item item : items) {
-      if (item.getShortName().equalsIgnoreCase(shortName)) {
+      if (item.shortName().equalsIgnoreCase(shortName)) {
         return item;
       }
     }
@@ -76,7 +76,7 @@ public class Room {
 
   @Override
   public String toString() {
-    return this.getName() + System.lineSeparator() + this.getDescription()
-            + " Available items: " + this.getItems();
+    return "You are in " + this.getName() + System.lineSeparator() + this.getDescription()
+            + "Available items: " + this.getItems() +"\n";
   }
 }
