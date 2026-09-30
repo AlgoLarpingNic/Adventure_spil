@@ -67,7 +67,7 @@ public class Room {
   //søger efter items i rum og safeguarded med samme sn
   public Item findItem (String shortName){
     for (Item item : items) {
-      if (item.shortName().equalsIgnoreCase(shortName)) {
+      if (item.getShortName().equalsIgnoreCase(shortName)) {
         return item;
       }
     }
