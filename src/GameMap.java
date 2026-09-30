@@ -36,9 +36,19 @@ public class GameMap {
         connectEastWest(room8, room9);
         connectNorthSouth(room5, room8);
 
-        room1.add(new Item("Lamp", "A shiny brass lamp"));
-        room4.add(new Item("Sword", "The third leg"));
-        room7.add(new Item("Mirror", "The ugly mirror"));
+        room1.add(new Item("Lamp", "shiny brass lamp"));
+        room2.add(new Item("Potion", "a magical potion"));
+        room3.add(new Item("Coin", "a polished gold coin"));
+        room4.add(new Item("Sword", "sword - the third leg"));
+        room5.add(new Item("Shoe", "a long lost shoe"));
+        room7.add(new Item("Mirror", "the ugly mirror"));
+
+        room2.add(new Food("Bread", "a loaf of stale bread", 10));
+        room4.add(new Food("Rabbit", "a delicious little Bunny", 40));
+        room5.add(new Food("Mushroom", "a pale glowing mushroom", -30));
+        room6.add(new Food("Steak", "a big fat juicy steak", 80));
+        room8.add(new Food("Potato", "a boring rotten potato", -50));
+        room9.add(new Food("Carrot", "The golden carrot", 100));
 
         this.startRoom = room1;
 
