@@ -46,6 +46,7 @@ public class UserInterface {
         case "south", "s" -> go("south");
         case "east", "e" -> go("east");
         case "west", "w" -> go("west");
+        case "eat" -> outputEat(argument);
         case "health", "hp" -> showHealth();
         case "look", "l" -> showCurrentRoom();
         case "help", "h" -> showHelp();
