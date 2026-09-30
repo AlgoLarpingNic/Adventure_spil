@@ -47,7 +47,7 @@ public class UserInterface {
         case "east", "e" -> go("east");
         case "west", "w" -> go("west");
         case "health", "hp" -> showHealth();
-        case "look", "l" -> IO.println(adventure.getCurrentRoom().getDescription());
+        case "look", "l" -> showCurrentRoom();
         case "help", "h" -> showHelp();
         case "quit", "q" -> {
           IO.println("Goodbye");
@@ -60,12 +60,32 @@ public class UserInterface {
       }
     }
   }
+
   private void go(String direction) {
     if (adventure.move(direction)) {
       IO.println("Going " + direction);
       IO.println(adventure.getCurrentRoom().getDescription());
     } else {
       IO.println("You hit a wall, please choose another direction");
+    }
+  }
+
+  //viser rum + items i det
+  private void showCurrentRoom() {
+    Room room = adventure.getCurrentRoom();
+    IO.println("You are in " + room.getName());
+    IO.println(room.getDescription());
+
+    List<Item> items = room.getItems();
+    if (!items.isEmpty()) {
+      IO.print("Here you see: ");
+      for (int i = 0; i < items.size(); i++) {
+        if (i > 0) {
+          IO.print(", ");
+        }
+        IO.print(items.get(i).getLongName());
+      }
+      IO.println();
     }
   }
 
@@ -83,7 +103,7 @@ public class UserInterface {
     }
   }
 
-  //det visuelle output til take
+  //det visuelle output til drop
   private void outputDrop(String itemName) {
     if (itemName.isEmpty()) {
       IO.println("Drop what?");
