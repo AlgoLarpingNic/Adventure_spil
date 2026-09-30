@@ -1,29 +1,63 @@
 public class Adventure {
-    private final Map map;
+    //vi skal have fat i en player for at kunne kalde- og instanciere metoderne
     private final Player player;
+    private boolean running = true;
 
+    //vi bygger vores map med metoder og objekter fra rooms
     public Adventure() {
-      map = new Map();
-      player = new Player(map.getStartRoom());
+        GameMap map = new GameMap();
+        this.player = new Player(map.getStartRoom());
     }
 
+    //vi skal kunne se hvor vores cursor/player er henne
+    public Room getCurrentRoom() {
+        return player.getCurrentRoom();
+    }
+
+    //getters til player i adventure så vi kan nøjes med at player har en 'has-a' relation til adventure men ikke andet
+    public int getHealth() {
+        return player.getHealth();
+    }
+
+    //eat-metode fra player i adventure
+    public EatResult eat(String shortName){
+        return player.eat(shortName);
+    }
+
+    //vi skal kunne se om tingen vi søger findes i inv eller rummet
+    public Item findItemAnywhere(String shortName){
+        Item item = player.findItem(shortName);
+        if (item != null) {
+            return item;
+        }
+        return player.getCurrentRoom().findItem(shortName);
+    }
+
+    //move funktion fra player/cursor til selve adventure/map
     public boolean move(String direction) {
-      return player.move(direction);
+        return player.move(direction);
     }
 
-    public String getCurrentRoomDescription() {
-      return player.getCurrentRoom().toString();
+    //arraylisten inventory fra player som består af Item(s)
+    public java.util.List<Item> getInventory() {
+        return player.getItems();
     }
 
+    //take metode fra player
     public Item take(String shortName) {
         return player.takeItem(shortName);
     }
 
+    //drop metode fra player
     public Item drop(String shortName) {
         return player.dropItem(shortName);
     }
 
-    public java.util.ArrayList<Item> getInventory() {
-        return player.getItems();
+    //metode til at "slukke" while-loopet/spillet
+    public boolean isRunning() {
+        return running;
+    }
+    public void quit() {
+        running = false;
     }
 }
