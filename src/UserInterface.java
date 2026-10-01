@@ -48,6 +48,7 @@ public class UserInterface {
         case "west", "w" -> go("west");
         case "eat" -> outputEat(argument);
         case "health", "hp" -> showHealth();
+        case "equip", "eq" -> outputEquip(argument);
         case "look", "l" -> showCurrentRoom();
         case "help", "h" -> showHelp();
         case "quit", "q" -> {
@@ -174,6 +175,28 @@ public class UserInterface {
       }
     }
   }
+  //sikre input fra player
+  private void outputEquip(String weaponName) {
+    if (weaponName.isEmpty()) {
+      IO.println("Equip what?");
+    }
+    //switch-case der sikrer de rigtige outputs til players Equip
+    Item itemWeapon = adventure.findItemAnywhere(weaponName);
+    Equip result = adventure.equip(weaponName);
+    switch (result) {
+      case NOT_FOUND -> IO.println("There is nothing like " + weaponName + "to equip around here");
+      case NOT_WEAPON -> IO.println("You cannot equip the " + itemWeapon.dopeGrammatics());
+      case EQUIP -> {
+        IO.println("You equipped the " + itemWeapon.dopeGrammatics() + ".");
+        String weaponEquipped = adventure.getWeaponShortName();
+        if (adventure.checkIfRanged()) {
+          IO.println("It has room for: " + adventure.getAmmoForPlayerEquippedRangedWeapon() + ".");
+        }
+
+      }
+    }
+  }
+
 }
 
 
