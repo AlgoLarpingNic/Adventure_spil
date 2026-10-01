@@ -4,6 +4,8 @@ public class Player {
   private Room currentRoom;
   private final ArrayList<Item> items = new ArrayList<>();
   private int health = 100;
+  private String equippedGear;
+  private RangedWeapon rangedWeapon;
 
   public Player(Room startRoom) {
     this.currentRoom = startRoom;
@@ -18,6 +20,16 @@ public class Player {
   }
   public void changeHealth(int amount){
     health += amount;
+  }
+  public void equippedWeapon(Weapon equippedWeapon){
+    equippedGear = equippedWeapon.getLongName();
+  }
+  public String getEquippedGear() {
+    return equippedGear;
+  }
+
+  public RangedWeapon getRangedWeapon() {
+    return rangedWeapon;
   }
 
   //bevægelsesmetode for cursor
@@ -45,7 +57,6 @@ public class Player {
   //ITEM OG INVENTORY METODER
 
   //getters til rum og item(s)
-
   public ArrayList<Item> getItems() {
     return items;
   }
@@ -82,6 +93,7 @@ public class Player {
     currentRoom.add(item);
     return item;
   }
+
   //FOOD OG EATRESULT METODE TIL PLAYER
   public EatResult eat(String shortName) {
     //find tingen i inv
@@ -108,7 +120,33 @@ public class Player {
     return EatResult.EATEN;
   }
 
+  //WEAPONS OF EQUIP METODER
+  public Equip equip(String shortName) {
+    //find tingen i inv
+    Item itemWeapon = findItem(shortName);
+    boolean fromInventory = (itemWeapon != null);
 
+    //hvis våben ikke findes i taske -> søger vi i currentRoom
+    if (itemWeapon == null){
+      itemWeapon = currentRoom.findItem(shortName);
+    }
+    //hvis våben stadig ikke findes return NOT_FOUND fra enum-klassen
+    if (itemWeapon == null){
+      return Equip.NOT_FOUND;
+    }
+    //hvis det ikke er et våben ...selvforklarende...
+    if (!(itemWeapon instanceof Weapon weapon)) {
+      return Equip.NOT_WEAPON;
+    }
+    equippedWeapon(weapon);
+    if (fromInventory) {
+      items.remove(itemWeapon);
+    }
+    else {
+      currentRoom.remove(itemWeapon);
+    }
+    return Equip.EQUIP;
+  }
 
 
 

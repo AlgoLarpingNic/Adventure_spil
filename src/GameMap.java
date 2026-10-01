@@ -16,6 +16,8 @@ public class GameMap {
         Room room8 = new Room("Room 8, ", "you can move north, west or east from here");
         Room room9 = new Room("Room 9, ", "you can move north or west from here");
 
+        this.startRoom = room1;
+
         createMap.add(room1);
         createMap.add(room2);
         createMap.add(room3);
@@ -39,7 +41,6 @@ public class GameMap {
         room1.add(new Item("Lamp", "shiny brass lamp"));
         room2.add(new Item("Potion", "a magical potion"));
         room3.add(new Item("Coin", "a polished gold coin"));
-        room4.add(new Item("Sword", "sword - the third leg"));
         room5.add(new Item("Shoe", "a long lost shoe"));
         room7.add(new Item("Mirror", "the ugly mirror"));
 
@@ -50,7 +51,8 @@ public class GameMap {
         room8.add(new Food("Potato", "a boring rotten potato", -50));
         room9.add(new Food("Carrot", "The golden carrot", 100));
 
-        this.startRoom = room1;
+        room1.add(new MeleeWeapon("Sword", "dusty third legged friend", 5, "You swing your third legged friend"));
+        room2.add(new RangedWeapon("Revolver", "colt 1851 navy cartridge conversion revolver", 30, "you shoot blondie's revolver", 0));
 
     }
 
