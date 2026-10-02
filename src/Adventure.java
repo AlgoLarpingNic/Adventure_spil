@@ -24,22 +24,16 @@ public class Adventure {
         return player.eat(shortName);
     }
     //equip-metode fra player i adventure
-    public Equip equip(String shortName){
+    public EquipResult equip(String shortName) {
         return player.equip(shortName);
     }
 
-    public String getWeaponShortName() {
-        return player.getEquippedGear();
+    public AttackResult attack() {
+        return player.attack();
     }
 
-    public boolean checkIfRanged(){
-        if (player.getRangedWeapon().hasAmmo()) {
-            return true;
-        }
-        return false;
-    }
-    public int getAmmoForPlayerEquippedRangedWeapon(){
-        return player.getRangedWeapon().getAmmo();
+    public Weapon getEquippedWeapon() {
+        return player.getEquippedWeapon();
     }
 
     //vi skal kunne se om tingen vi søger findes i inv eller rummet

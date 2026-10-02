@@ -4,32 +4,27 @@ public class Player {
   private Room currentRoom;
   private final ArrayList<Item> items = new ArrayList<>();
   private int health = 100;
-  private String equippedGear;
-  private RangedWeapon rangedWeapon;
+  private Weapon equippedWeapon;
 
   public Player(Room startRoom) {
     this.currentRoom = startRoom;
   }
 
-  //getters fra player til adventure og hp-metoder
+  //getters fra player til adventure
   public Room getCurrentRoom() {
     return currentRoom;
   }
-  public int getHealth(){
+
+  public int getHealth() {
     return health;
   }
-  public void changeHealth(int amount){
+
+  public void changeHealth(int amount) {
     health += amount;
   }
-  public void equippedWeapon(Weapon equippedWeapon){
-    equippedGear = equippedWeapon.getLongName();
-  }
-  public String getEquippedGear() {
-    return equippedGear;
-  }
 
-  public RangedWeapon getRangedWeapon() {
-    return rangedWeapon;
+  public Weapon getEquippedWeapon() {
+    return equippedWeapon;
   }
 
   //bevægelsesmetode for cursor
@@ -37,15 +32,20 @@ public class Player {
     Room nextRoom;
 
     switch (direction) {
-      case "north", "n" : nextRoom = currentRoom.getNorth();
+      case "north", "n":
+        nextRoom = currentRoom.getNorth();
         break;
-      case "east", "e" : nextRoom = currentRoom.getEast();
+      case "east", "e":
+        nextRoom = currentRoom.getEast();
         break;
-      case "south", "s" : nextRoom = currentRoom.getSouth();
+      case "south", "s":
+        nextRoom = currentRoom.getSouth();
         break;
-      case "west", "w" : nextRoom = currentRoom.getWest();
+      case "west", "w":
+        nextRoom = currentRoom.getWest();
         break;
-      default: return false;
+      default:
+        return false;
     }
     if (nextRoom == null) {
       return false;
@@ -100,10 +100,10 @@ public class Player {
     Item item = findItem(shortName);
     boolean fromInventory = (item != null);
 
-    if (item == null){
+    if (item == null) {
       item = currentRoom.findItem(shortName);
     }
-    if (item == null){
+    if (item == null) {
       return EatResult.NOT_FOUND;
     }
     //fandt endelig ud af hvordan man bruger ! på instanceof
@@ -113,40 +113,52 @@ public class Player {
     changeHealth(food.getHealthPoints());
     if (fromInventory) {
       items.remove(item);
-    }
-    else {
+    } else {
       currentRoom.remove(item);
     }
     return EatResult.EATEN;
   }
 
   //WEAPONS OF EQUIP METODER
-  public Equip equip(String shortName) {
+  public EquipResult equip(String shortName) {
     //find tingen i inv
     Item itemWeapon = findItem(shortName);
-    boolean fromInventory = (itemWeapon != null);
-
-    //hvis våben ikke findes i taske -> søger vi i currentRoom
-    if (itemWeapon == null){
-      itemWeapon = currentRoom.findItem(shortName);
+    if (itemWeapon == null) {
+      return EquipResult.NOT_FOUND;
     }
-    //hvis våben stadig ikke findes return NOT_FOUND fra enum-klassen
-    if (itemWeapon == null){
-      return Equip.NOT_FOUND;
-    }
-    //hvis det ikke er et våben ...selvforklarende...
     if (!(itemWeapon instanceof Weapon weapon)) {
-      return Equip.NOT_WEAPON;
+      return EquipResult.NOT_WEAPON;
     }
-    equippedWeapon(weapon);
-    if (fromInventory) {
-      items.remove(itemWeapon);
-    }
-    else {
-      currentRoom.remove(itemWeapon);
-    }
-    return Equip.EQUIP;
+    equippedWeapon = weapon;
+    return EquipResult.EQUIPPED;
   }
+
+    //hvis våben stadig ikke findes return NOT_FOUND fra enum-klassen
+    public AttackResult attack() {
+      if (equippedWeapon == null) {
+        return AttackResult.NO_WEAPON;
+      }
+      if (!equippedWeapon.canUse()) {
+        return AttackResult.NO_AMMO;
+      }
+      equippedWeapon.Use(); // forbruger evt. ammo
+      return AttackResult.SUCCESS;
+    }
+  //Ved drop: hvis det droppede item er det equippede våben → unequip
+  public Item dropWeapon(String shortName) {
+    Item item = findItem(shortName);
+    if (item == null) {
+      return null;
+    }
+    items.remove(item);
+    currentRoom.add(item);
+
+    if (item == equippedWeapon) {
+      equippedWeapon = null;
+    }
+    return item;
+  }
+
 
 
 
