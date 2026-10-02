@@ -1,33 +1,23 @@
 public abstract class Weapon extends Item {
     private final int damage;
-    private final String attack;
+    private final String attackText;
 
-    public Weapon(String shortName, String longName, int damage, String attack) {
+    public Weapon(String shortName, String longName, int damage, String attackText) {
         super(shortName, longName);
         this.damage = damage;
-        this.attack = attack;
-    }
-    abstract boolean canUse();
-    abstract int use();
-
-    @Override
-    public String getShortName() {
-        return super.getShortName();
+        this.attackText = attackText;
     }
 
-    @Override
-    public String getLongName() {
-        return super.getLongName();
+    public int getDamage(){
+    return  damage;
     }
 
-    public int getDamage() {
-        return damage;
+    public String getAttackText(){
+        return attackText;
+
     }
 
-    public String getAttack() {
-        return attack;
-    }
-
+    public abstract boolean canUse();
+    public abstract int Use();
+    public abstract int remainingUses();
 }
-
-

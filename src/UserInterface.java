@@ -49,6 +49,7 @@ public class UserInterface {
         case "eat" -> outputEat(argument);
         case "health", "hp" -> showHealth();
         case "equip", "eq" -> outputEquip(argument);
+        case "attack", "a"  -> outputAttack();
         case "look", "l" -> showCurrentRoom();
         case "help", "h" -> showHelp();
         case "quit", "q" -> {
@@ -127,12 +128,14 @@ public class UserInterface {
     } else {
       IO.print("You are carrying: ");
       for (int i = 0; i < inv.size(); i++) {
-        if (i > 0) {
-          IO.print(", ");
-        }
+        if (i > 0) IO.print(", ");
         IO.print(inv.get(i).getLongName());
       }
       IO.println();
+    } //tilføjelser så vi også har weapons og equipped weapons
+    Weapon eq = adventure.getEquippedWeapon();
+    if (eq != null) {
+      IO.println("Equipped: " + eq.getLongName());
     }
   }
 
@@ -147,6 +150,8 @@ public class UserInterface {
               drop <item>      - leave an item in the current room
               eat <food>       - eat something from the room or your inventory
               health           - show your current health
+              equip <weapon>   - equip a weapon from your inventory
+              attack           - attack with your equipped weapon
               help             - show this help text
               exit / quit      - end the game
             """);
@@ -179,20 +184,43 @@ public class UserInterface {
   private void outputEquip(String weaponName) {
     if (weaponName.isEmpty()) {
       IO.println("Equip what?");
+      return;
     }
     //switch-case der sikrer de rigtige outputs til players Equip
     Item itemWeapon = adventure.findItemAnywhere(weaponName);
-    Equip result = adventure.equip(weaponName);
-    switch (result) {
-      case NOT_FOUND -> IO.println("There is nothing like " + weaponName + "to equip around here");
-      case NOT_WEAPON -> IO.println("You cannot equip the " + itemWeapon.dopeGrammatics());
-      case EQUIP -> {
-        IO.println("You equipped the " + itemWeapon.dopeGrammatics() + ".");
-        String weaponEquipped = adventure.getWeaponShortName();
-        if (adventure.checkIfRanged()) {
-          IO.println("It has room for: " + adventure.getAmmoForPlayerEquippedRangedWeapon() + ".");
-        }
+    EquipResult result = adventure.equip(weaponName);
 
+    switch (result) {
+      case NOT_FOUND ->
+              IO.println("You don't have anything like " + weaponName + " in your inventory");
+      case NOT_WEAPON ->
+              IO.println("The " + (itemWeapon != null ? itemWeapon.dopeGrammatics() : weaponName) + " is not a weapon");
+      case EQUIPPED ->
+              IO.println("You have equipped the " + itemWeapon.dopeGrammatics());
+    }
+  }
+  private void outputAttack() {
+    Weapon weapon = adventure.getEquippedWeapon();
+    AttackResult result = adventure.attack();
+
+    switch (result) {
+      case NO_WEAPON ->
+              IO.println("You have no weapon equipped.");
+      case NO_AMMO ->
+              IO.println("Your weapon is out of ammunition.");
+      case SUCCESS -> {
+        // Polymorfi: use() er allerede kaldt i Player.
+        // Vis attack-tekst + evt. resterende skud via canUse/use-retur
+        // Vi kalder use() igen? Nej – Player har allerede kaldt use().
+        // Bedre: lad attack returnere mere info, eller byg besked her fra weapon.
+        IO.println(weapon.getAttackText());
+        int left = weapon.remainingUses();
+        if (left >= 0) {
+          IO.println(left + " shots left.");
+        }
+        // For ranged: vis skud tilbage – uden instanceof:
+        // Vi kan ikke se remaining uden at kalde use() igen.
+        // Løsning: Player.attack() returnerer remaining, eller Weapon har getRemainingUses().
       }
     }
   }

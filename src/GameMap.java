@@ -45,14 +45,16 @@ public class GameMap {
         room7.add(new Item("Mirror", "the ugly mirror"));
 
         room2.add(new Food("Bread", "a loaf of stale bread", 10));
-        room4.add(new Food("Rabbit", "a delicious little Bunny", 40));
+        room4.add(new Food("Bunny", "a delicious little Bunny", 40));
         room5.add(new Food("Mushroom", "a pale glowing mushroom", -30));
         room6.add(new Food("Steak", "a big fat juicy steak", 80));
         room8.add(new Food("Potato", "a boring rotten potato", -50));
         room9.add(new Food("Carrot", "The golden carrot", 100));
 
-        room1.add(new MeleeWeapon("Sword", "dusty third legged friend", 5, "You swing your third legged friend"));
-        room2.add(new RangedWeapon("Revolver", "colt 1851 navy cartridge conversion revolver", 30, "you shoot blondie's revolver", 0));
+        room1.add(new MeleeWeapon("Sword", "a dusty third legged friend", 5,
+                "You swing your third legged friend at the empty air."));
+        room2.add(new RangedWeapon("Revolver", "colt 1851 navy cartridge conversion revolver", 30,
+                "You fire the colt revolver into the empty air.", 6));  // 6 skud!
 
     }
 
