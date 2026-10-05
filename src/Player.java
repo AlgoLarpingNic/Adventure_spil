@@ -159,7 +159,8 @@ public class Player {
     return item;
   }
 
-
-
-
+  public void hit(Weapon weapon){
+    health -= weapon.getDamage();
+  }
 }
+
