@@ -1,3 +1,5 @@
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class UserInterface {
@@ -80,13 +82,34 @@ public class UserInterface {
     IO.println(room.getDescription());
 
     List<Item> items = room.getItems();
+    showItems(items);
+    showEnemies(room.getEnemies());
+  }
+
+  private static void showItems(List<Item> items) {
     if (!items.isEmpty()) {
-      IO.print("Here you see: ");
+      IO.print("Here you see: " );
       for (int i = 0; i < items.size(); i++) {
         if (i > 0) {
           IO.print(", ");
         }
         IO.print(items.get(i).getLongName());
+      }
+      IO.println();
+    }
+  }
+
+  private static void showEnemies(List<Enemy> enemies) {
+    if (!enemies.isEmpty()){
+      IO.println("Enemies: ");
+
+      for (int i = 0; i < enemies.size(); i++){
+        if (i > 0){
+          IO.println(", ");
+        }
+        IO.print(enemies.get(i).getShortName());
+        IO.print(" - ");
+        IO.print(enemies.get(i).getLongName());
       }
       IO.println();
     }
