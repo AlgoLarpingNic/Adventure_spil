@@ -32,7 +32,7 @@ public class UserInterface {
     IO.println("If you wish to give up, type quit");
     IO.println(adventure.getCurrentRoom().getDescription());
 
-    while (!adventureDone) {
+    while (!adventureDone && adventure.isRunning()) {
       String input = IO.readln().trim();
       if (input.isEmpty()) continue;
 
