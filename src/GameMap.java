@@ -51,14 +51,17 @@ public class GameMap {
     room8.add(new Food("Potato", "a boring rotten potato", -50));
     room9.add(new Food("Carrot", "The golden carrot", 100));
 
-    room1.add(new MeleeWeapon("Sword", "a dusty third legged friend", 5,
+    room1.add(new MeleeWeapon("Sword", "a dusty third legged friend", 25,
             "You swing your third legged friend at the empty air."));
-    room2.add(new RangedWeapon("Revolver", "colt 1851 navy cartridge conversion revolver", 30,
+    room2.add(new RangedWeapon("Revolver", "colt 1851 navy cartridge conversion revolver", 35,
             "You fire the colt revolver into the empty air.", 6));  // 6 skud!
 
-    room4.addEnemy(new Enemy("Skeleton", "a silent striker enemy", "lurks in the corners", 80,
-            new RangedWeapon("Bow", "a deadly bow", 30, "you shot and hit the player",4), room4));
-
+    room4.addEnemy(new Enemy("Skeleton", "a silent striker enemy", "lurks in the corners", 60,
+            new RangedWeapon("Bow", "a deadly bow", 20, "you shot and hit the player", 4), room4));
+    room2.addEnemy(new Enemy("Sødkat", "Puss in boots", "Quick and fearless", 50,
+            new MeleeWeapon("Saber", "a Narrow pointy saber", 9, "you stabbed and hit the player"), room2));
+    room7.addEnemy(new Enemy("goraffen", "the giraffe and gorilla mix", "fills the room with terror", 80,
+            new MeleeWeapon("Brass knuckle", "a gold metal fist", 30, "you punched and hit the player"), room7));
   }
 
   //connectors til at bygge logikken mellem "døre"
