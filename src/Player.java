@@ -5,6 +5,7 @@ public class Player {
   private final ArrayList<Item> items = new ArrayList<>();
   private int health = 100;
   private Weapon equippedWeapon;
+  private Enemy targetHit;
 
   public Player(Room startRoom) {
     this.currentRoom = startRoom;
@@ -25,6 +26,10 @@ public class Player {
 
   public Weapon getEquippedWeapon() {
     return equippedWeapon;
+  }
+
+  public Enemy getTargetHit() {
+    return targetHit;
   }
 
   //bevægelsesmetode for cursor
@@ -91,6 +96,10 @@ public class Player {
     }
     items.remove(item);
     currentRoom.add(item);
+
+    if (item == equippedWeapon) {
+      equippedWeapon = null;
+    }
     return item;
   }
 
@@ -133,34 +142,51 @@ public class Player {
     return EquipResult.EQUIPPED;
   }
 
-    //hvis våben stadig ikke findes return NOT_FOUND fra enum-klassen
-    public AttackResult attack() {
-      if (equippedWeapon == null) {
-        return AttackResult.NO_WEAPON;
-      }
-      if (!equippedWeapon.canUse()) {
-        return AttackResult.NO_AMMO;
-      }
-      equippedWeapon.Use(); // forbruger evt. ammo
-      return AttackResult.SUCCESS;
-    }
-  //Ved drop: hvis det droppede item er det equippede våben → unequip
-  public Item dropWeapon(String shortName) {
-    Item item = findItem(shortName);
-    if (item == null) {
-      return null;
-    }
-    items.remove(item);
-    currentRoom.add(item);
-
-    if (item == equippedWeapon) {
-      equippedWeapon = null;
-    }
-    return item;
-  }
-
   public void hit(Weapon weapon){
     health -= weapon.getDamage();
   }
-}
 
+    //hvis våben stadig ikke findes return NOT_FOUND fra enum-klassen
+    public AttackSequence attack(String enemyName) {
+      //har vi et våben?
+      if (equippedWeapon == null) {
+        return AttackSequence.NO_WEAPON;
+      } //kan det bruges?
+      if (!equippedWeapon.canUse()) {
+        return AttackSequence.NO_AMMO;
+      }
+
+      //find target/enemy
+      Enemy target; // (= null); - det er åbenbart allerede sat til null
+      boolean nameGiven = (enemyName != null && !enemyName.isBlank());
+      if (nameGiven) {
+        target = currentRoom.findEnemy(enemyName);
+        if (target == null) {
+          return AttackSequence.ENEMY_NOT_FOUND;
+        }
+      }
+      else {
+        target = currentRoom.getFirstEnemy();
+        if (target == null) {
+          equippedWeapon.use();
+          return AttackSequence.ATTACK_AIR;
+        }
+      }
+      targetHit = target;
+
+      //angrib enemy/target
+      equippedWeapon.use();
+      target.hit(equippedWeapon);
+
+      //døde fjenden? (die kaldes i hit() når hp <= 0)
+      if (target.getHealth() <= 0) {
+        return AttackSequence.ENEMY_KILLED;
+      }
+      //enemy slår tilbage (og er vi evt. døde?)
+      target.attack(this);
+      if (health <= 0) {
+        return AttackSequence.PLAYER_TERMINATED;
+      }
+      return AttackSequence.SUCCESS;
+    }
+}
