@@ -214,13 +214,13 @@ public class UserInterface {
         // Vi kalder use() igen? Nej – Player har allerede kaldt use().
         // Bedre: lad attack returnere mere info, eller byg besked her fra weapon.
         IO.println(weapon.getAttackText());
-        int left = weapon.remainingUses();
-        if (left >= 0) {
-          IO.println(left + " shots left.");
+        int ammoLeft = weapon.remainingUses();
+        if (ammoLeft >= 0) {
+          IO.println(ammoLeft + " shots left.");
         }
         // For ranged: vis skud tilbage – uden instanceof:
         // Vi kan ikke se remaining uden at kalde use() igen.
-        // Løsning: Player.attack() returnerer remaining, eller Weapon har getRemainingUses().
+        // Player.attack() returnerer remaining, eller Weapon har getRemainingUses().
       }
     }
   }
