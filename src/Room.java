@@ -119,7 +119,6 @@ public class Room {
     return enemies.get(0);
   }
 
-
   @Override
   public String toString() {
     return "You are in " + this.getName() + System.lineSeparator() + this.getDescription()

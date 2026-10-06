@@ -14,7 +14,6 @@ public abstract class Weapon extends Item {
 
     public String getAttackText(){
         return attackText;
-
     }
 
     public abstract boolean canUse();

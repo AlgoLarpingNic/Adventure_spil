@@ -238,9 +238,9 @@ public class UserInterface {
         }
       }
       case SUCCESS -> {
-        IO.println("You hit " + enemyText + "with the " + weapon.dopeGrammatics()
-                + "for " + weapon.getDamage() + " damage");
-        IO.println(enemyText + " Strikes back");
+        IO.println("You hit " + enemyText + " with the " + weapon.dopeGrammatics()
+                + " for " + weapon.getDamage() + " damage");
+        IO.println(enemyText + " strikes back");
         IO.println("Your health-points are now: " + adventure.getHealth() + ".");
         int left = weapon.remainingUses();
         if (left >= 0) {
@@ -248,7 +248,7 @@ public class UserInterface {
         }
       }
       case ENEMY_KILLED -> {
-        IO.println("You hit " + enemyText + "with the " + weapon.dopeGrammatics()
+        IO.println("You hit " + enemyText + " with the " + weapon.dopeGrammatics()
                 + " for " + weapon.getDamage() + " damage.");
         IO.println(enemyText + " dies, dropping its weapon.");
         int left = weapon.remainingUses();
@@ -257,7 +257,7 @@ public class UserInterface {
         }
       }
         case PLAYER_TERMINATED -> {
-          IO.println("You hit" + enemyText + " with the " + weapon.dopeGrammatics()
+          IO.println("You hit " + enemyText + " with the " + weapon.dopeGrammatics()
                   + " for " + weapon.getDamage() + " damage.");
           IO.println(enemyText + " strikes back and defeats you!");
           IO.println("You are dead. Game over.");
