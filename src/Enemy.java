@@ -23,6 +23,10 @@ public class Enemy {
     return longName;
   }
 
+  public int getHealth() {
+    return health;
+  }
+
   public void attack(Player player) {
     player.hit(weapon);
   }

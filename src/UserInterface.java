@@ -1,5 +1,3 @@
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class UserInterface {
@@ -51,7 +49,7 @@ public class UserInterface {
         case "eat" -> outputEat(argument);
         case "health", "hp" -> showHealth();
         case "equip", "eq" -> outputEquip(argument);
-        case "attack", "a"  -> outputAttack();
+        case "attack", "a"  -> outputAttack(argument);
         case "look", "l" -> showCurrentRoom();
         case "help", "h" -> showHelp();
         case "quit", "q" -> {
@@ -222,32 +220,51 @@ public class UserInterface {
               IO.println("You have equipped the " + itemWeapon.dopeGrammatics());
     }
   }
-  private void outputAttack() {
+  private void outputAttack(String enemyName) {
     Weapon weapon = adventure.getEquippedWeapon();
-    AttackResult result = adventure.attack();
+    AttackSequence result = adventure.attack(enemyName);
+    Enemy enemy = adventure.getTargetHit();
+    String enemyText = (enemy != null) ? enemy.getLongName() : "The enemy";
 
     switch (result) {
-      case NO_WEAPON ->
-              IO.println("You have no weapon equipped.");
-      case NO_AMMO ->
-              IO.println("Your weapon is out of ammunition.");
-      case SUCCESS -> {
-        // Polymorfi: use() er allerede kaldt i Player.
-        // Vis attack-tekst + evt. resterende skud via canUse/use-retur
-        // Vi kalder use() igen? Nej – Player har allerede kaldt use().
-        // Bedre: lad attack returnere mere info, eller byg besked her fra weapon.
+      case NO_WEAPON -> IO.println("You have no weapon equipped.");
+      case NO_AMMO -> IO.println("Your weapon is out of ammunition.");
+      case ENEMY_NOT_FOUND -> IO.println("There is no enemy like " + enemyName + " here");
+      case ATTACK_AIR -> {
         IO.println(weapon.getAttackText());
         int ammoLeft = weapon.remainingUses();
         if (ammoLeft >= 0) {
           IO.println(ammoLeft + " shots left.");
         }
-        // For ranged: vis skud tilbage – uden instanceof:
-        // Vi kan ikke se remaining uden at kalde use() igen.
-        // Player.attack() returnerer remaining, eller Weapon har getRemainingUses().
       }
+      case SUCCESS -> {
+        IO.println("You hit " + enemyText + "with the " + weapon.dopeGrammatics()
+                + "for " + weapon.getDamage() + " damage");
+        IO.println(enemyText + " Strikes back");
+        IO.println("Your health-points are now: " + adventure.getHealth() + ".");
+        int left = weapon.remainingUses();
+        if (left >= 0) {
+          IO.println(left + " shots left.");
+        }
+      }
+      case ENEMY_KILLED -> {
+        IO.println("You hit " + enemyText + "with the " + weapon.dopeGrammatics()
+                + " for " + weapon.getDamage() + " damage.");
+        IO.println(enemyText + " dies, dropping its weapon.");
+        int left = weapon.remainingUses();
+        if (left >= 0) {
+          IO.println(left + " shots left.");
+        }
+      }
+        case PLAYER_TERMINATED -> {
+          IO.println("You hit" + enemyText + " with the " + weapon.dopeGrammatics()
+                  + " for " + weapon.getDamage() + " damage.");
+          IO.println(enemyText + " strikes back and defeats you!");
+          IO.println("You are dead. Game over.");
+          adventure.quit();
+        }
     }
   }
-
 }
 
 

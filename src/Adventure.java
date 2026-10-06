@@ -28,8 +28,12 @@ public class Adventure {
         return player.equip(shortName);
     }
 
-    public AttackResult attack() {
-        return player.attack();
+    public AttackSequence attack(String enemyName) {
+        return player.attack(enemyName);
+    }
+
+    public Enemy getTargetHit() {
+      return player.getTargetHit();
     }
 
     public Weapon getEquippedWeapon() {

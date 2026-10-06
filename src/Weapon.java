@@ -18,6 +18,6 @@ public abstract class Weapon extends Item {
     }
 
     public abstract boolean canUse();
-    public abstract int Use();
+    public abstract int use();
     public abstract int remainingUses();
 }

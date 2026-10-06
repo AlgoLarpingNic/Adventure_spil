@@ -98,6 +98,28 @@ public class Room {
     return enemies;
   }
 
+  // Finder en fjende ud fra shortName. Returnerer null hvis ikke fundet.
+  public Enemy findEnemy(String shortName) {
+    if (shortName == null || shortName.isEmpty()) {
+      return null;
+    }
+    for (Enemy enemy : enemies) {
+      if (enemy.getShortName().equalsIgnoreCase(shortName)) {
+        return enemy;
+      }
+    }
+    return null;
+  }
+
+  // Returnerer den første fjende i rummet, eller null hvis rummet er tomt.
+  public Enemy getFirstEnemy() {
+    if (enemies.isEmpty()) {
+      return null;
+    }
+    return enemies.get(0);
+  }
+
+
   @Override
   public String toString() {
     return "You are in " + this.getName() + System.lineSeparator() + this.getDescription()
