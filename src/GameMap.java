@@ -60,8 +60,8 @@ public class GameMap {
             new RangedWeapon("Bow", "a deadly bow", 20, "you shot and hit the player", 4), room4));
     room2.addEnemy(new Enemy("Sødkat", "Puss in boots", "Quick and fearless", 50,
             new MeleeWeapon("Saber", "a Narrow pointy saber", 9, "you stabbed and hit the player"), room2));
-    room7.addEnemy(new Enemy("goraffen", "the mix between a giraffe and gorilla", "fills the room with terror", 80,
-            new MeleeWeapon("Brass knuckles", "a gold metal fist", 30, "you punched and hit the player"), room7));
+    room7.addEnemy(new Enemy("goraffen", "the giraffe and gorilla mix", "fills the room with terror", 80,
+            new MeleeWeapon("Brass knuckle", "a gold metal fist", 30, "you punched and hit the player"), room7));
   }
 
   //connectors til at bygge logikken mellem "døre"
